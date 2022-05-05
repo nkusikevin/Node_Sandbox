@@ -67,3 +67,9 @@ router.get("/logout", (req, res) => {
 router.get("/protected", requireAuth, (req, res) => {
     res.send("wooow you made it here");
 });
+//post decorator
+function post(routeName) {
+    return function (target, key, desc) {
+        router.post(routeName, target[key]);
+    };
+}

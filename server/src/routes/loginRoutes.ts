@@ -75,4 +75,12 @@ router.get("/protected", requireAuth, (req: Request, res: Response) => {
 	res.send("wooow you made it here");
 });
 
+//post decorator
+
+function post(routeName: string) {
+	return function (target: any, key: string, desc: PropertyDecorator) {
+		router.post(routeName, target[key]);
+	};
+}
+
 export { router as loginRoutes };
