@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginRoutes = void 0;
+exports.router = void 0;
 const express_1 = require("express");
 const router = (0, express_1.Router)();
-exports.loginRoutes = router;
+exports.router = router;
 function requireAuth(req, res, next) {
     if (req.session && req.session.loggedIn) {
         next();
@@ -12,25 +12,6 @@ function requireAuth(req, res, next) {
     res.status(403);
     res.send("Not Permitted");
 }
-//login route
-router.get("/login", (req, res) => {
-    res.send(`
-    <div>
-    <h1>Login</h1>
-    <form method="POST" action="/login">
-    <div>
-    <label>Email</label>
-    <input type="email" name="email" placeholder="Enter Email"/>
-    </div>
-    <div>
-    <label>Password</label>
-    <input type="password" name="password" placeholder="password"/>
-    </div>
-    <button type="submit">Login</button>
-    </form>
-    </div>
-    `);
-});
 //post login form data
 router.post("/login", (req, res) => {
     const { email, password } = req.body;
@@ -47,7 +28,7 @@ router.get("/", (req, res) => {
         res.send(`
 <div>
 <h1>Hello Welcome</h1>
-<a href="/login">Sign out</a>
+<a href="/logout">Sign out</a>
 </div>
 `);
     }
@@ -67,9 +48,3 @@ router.get("/logout", (req, res) => {
 router.get("/protected", requireAuth, (req, res) => {
     res.send("wooow you made it here");
 });
-//post decorator
-function post(routeName) {
-    return function (target, key, desc) {
-        router.post(routeName, target[key]);
-    };
-}

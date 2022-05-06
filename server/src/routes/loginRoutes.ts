@@ -16,26 +16,6 @@ function requireAuth(req: Request, res: Response, next: NextFunction): void {
 	res.send("Not Permitted");
 }
 
-//login route
-router.get("/login", (req: Request, res: Response) => {
-	res.send(`
-    <div>
-    <h1>Login</h1>
-    <form method="POST" action="/login">
-    <div>
-    <label>Email</label>
-    <input type="email" name="email" placeholder="Enter Email"/>
-    </div>
-    <div>
-    <label>Password</label>
-    <input type="password" name="password" placeholder="password"/>
-    </div>
-    <button type="submit">Login</button>
-    </form>
-    </div>
-    `);
-});
-
 //post login form data
 router.post("/login", (req: RequestWithBody, res: Response) => {
 	const { email, password } = req.body;
@@ -52,7 +32,7 @@ router.get("/", (req: Request, res: Response) => {
 		res.send(`
 <div>
 <h1>Hello Welcome</h1>
-<a href="/login">Sign out</a>
+<a href="/logout">Sign out</a>
 </div>
 `);
 	} else {
@@ -75,12 +55,4 @@ router.get("/protected", requireAuth, (req: Request, res: Response) => {
 	res.send("wooow you made it here");
 });
 
-//post decorator
-
-function post(routeName: string) {
-	return function (target: any, key: string, desc: PropertyDecorator) {
-		router.post(routeName, target[key]);
-	};
-}
-
-export { router as loginRoutes };
+export { router };

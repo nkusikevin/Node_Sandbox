@@ -1,15 +1,17 @@
 import express from "express";
-import { loginRoutes } from "./routes/loginRoutes";
+import { router } from "./routes/loginRoutes";
 import bodyParser from "body-parser";
 import cookieSession from "cookie-session";
+import { router as controllerRouter } from "./controllers/decorators/controller";
+import "./controllers/loginController";
 
 const app = express();
 
-//use loginRoutes
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieSession({ keys: ["dfkgd"] }));
-app.use(loginRoutes);
+app.use(cookieSession({ keys: ["laskdjf"] }));
+app.use(router);
+app.use(controllerRouter);
 
 app.listen(3000, () => {
-	console.log("app is Running on 3000");
+	console.log("Listening on port 3000");
 });

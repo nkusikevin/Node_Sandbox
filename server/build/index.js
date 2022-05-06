@@ -7,11 +7,13 @@ const express_1 = __importDefault(require("express"));
 const loginRoutes_1 = require("./routes/loginRoutes");
 const body_parser_1 = __importDefault(require("body-parser"));
 const cookie_session_1 = __importDefault(require("cookie-session"));
+const controller_1 = require("./controllers/decorators/controller");
+require("./controllers/loginController");
 const app = (0, express_1.default)();
-//use loginRoutes
 app.use(body_parser_1.default.urlencoded({ extended: true }));
-app.use((0, cookie_session_1.default)({ keys: ["dfkgd"] }));
-app.use(loginRoutes_1.loginRoutes);
+app.use((0, cookie_session_1.default)({ keys: ["laskdjf"] }));
+app.use(loginRoutes_1.router);
+app.use(controller_1.router);
 app.listen(3000, () => {
-    console.log("app is Running on 3000");
+    console.log("Listening on port 3000");
 });
